@@ -37,86 +37,146 @@
   </div>
 </section>
 
+<style>
+/* ===== About page: clickable team + CV pop-up (self-contained) ===== */
+.cf-team{--ch:560px;}
+.cf-team .cf-photo{height:330px;}
+.cf-slide[data-pos="0"] .cf-photo{cursor:pointer;}
+.cv-btn{
+  align-self:center; margin-top:12px; padding:8px 20px; border-radius:99px; cursor:pointer;
+  border:1.5px solid var(--blue); background:#fff; color:var(--blue);
+  font:600 .88rem 'Space Grotesk',var(--sans); transition:background .2s ease,color .2s ease;
+}
+.cv-btn:hover,.cv-btn:focus-visible{background:var(--blue); color:#fff;}
+@media(max-width:760px){.cf-team{--ch:540px;} .cf-team .cf-photo{height:300px;}}
+
+.cv-modal{
+  position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center; padding:20px;
+  visibility:hidden; opacity:0; transition:opacity .25s ease, visibility .25s ease;
+}
+.cv-modal.open{visibility:visible; opacity:1;}
+.cv-backdrop{position:absolute; inset:0; background:rgba(4,12,44,.72); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);}
+.cv-dialog{
+  position:relative; width:100%; max-width:720px; max-height:88vh; overflow:auto; border-radius:20px;
+  background:#fff; box-shadow:0 30px 70px rgba(4,12,44,.5); outline:none;
+  transform:translateY(16px) scale(.98); transition:transform .3s cubic-bezier(.22,.8,.3,1);
+}
+.cv-modal.open .cv-dialog{transform:none;}
+.cv-dialog::before{content:""; position:absolute; left:0; top:0; width:110px; height:13px; background:var(--orange); clip-path:polygon(0 0,100% 0,84% 100%,0 100%); z-index:2;}
+.cv-close{
+  position:absolute; right:14px; top:12px; z-index:3; width:38px; height:38px; border-radius:50%; border:0; cursor:pointer;
+  background:rgba(255,255,255,.18); color:#fff; font-size:1.6rem; line-height:1;
+}
+.cv-close:hover{background:var(--orange);}
+.cv-head{
+  display:flex; align-items:center; gap:22px; padding:34px 64px 24px 28px; color:#fff;
+  background:linear-gradient(135deg,#061a55 0%,#0a2a7a 100%);
+}
+.cv-photo{flex:none; width:104px; height:104px; border-radius:50%; overflow:hidden; background:linear-gradient(160deg,var(--orange),#a83d00); border:3px solid rgba(255,255,255,.85);}
+.cv-photo img{width:100%; height:100%; object-fit:cover; object-position:top center; display:block;}
+.cv-eyebrow{margin:0 0 .3em; font-size:.72rem; font-weight:600; letter-spacing:.22em; color:var(--orange);}
+.cv-head h3{margin:0 0 .2em; font-family:'Space Grotesk',var(--sans); font-size:1.6rem; line-height:1.15; color:#fff;}
+.cv-head p{margin:0; color:#d7e2ff; font-size:.98rem;}
+.cv-body{padding:22px 28px 8px;}
+.cv-body h4{
+  display:flex; align-items:center; gap:10px; margin:20px 0 8px; font-family:'Space Grotesk',var(--sans);
+  font-size:.82rem; letter-spacing:.16em; text-transform:uppercase; color:var(--blue-dark);
+}
+.cv-body h4::after{content:""; flex:1; height:1px; background:linear-gradient(90deg,var(--line),transparent);}
+.cv-body h4:first-child{margin-top:4px;}
+.cv-body p{margin:0 0 6px; color:#3b3f4a;}
+.cv-body ul{margin:0 0 6px; padding-left:20px; color:#3b3f4a;}
+.cv-body li{margin-bottom:5px;}
+.cv-empty{color:#6b7390; font-style:italic;}
+.cv-pdf{display:inline-block; margin:8px 28px 26px; padding:10px 20px; border-radius:99px; background:var(--orange); color:#fff; font-weight:600; text-decoration:none;}
+.cv-pdf:hover{background:var(--red);}
+.cv-pdf[hidden]{display:none;}
+@media(max-width:560px){
+  .cv-head{flex-direction:column; text-align:center; padding:34px 20px 20px;}
+  .cv-body{padding:18px 20px 6px;} .cv-pdf{margin:8px 20px 22px;}
+}
+</style>
 <section class="section cf-section" id="about">
   <div class="section-inner"><p class="fx-eyebrow">OUR TEAM</p>
-    <h2 class="fx-title sm">Head of QCDRRMD &amp; Training Team</h2></div>
+    <h2 class="fx-title sm">Head of QCDRRMD &amp; Training Team</h2>
+    <p class="section-lead">Select a team member to read their CV.</p></div>
   <div class="cf cf-team" id="team-cf" role="region" aria-roledescription="carousel" aria-label="Head and training team">
     <div class="cf-stage">
-      <article class="cf-slide cf-person cf-head" style="--c:#ff6a00">
+      <article class="cf-slide cf-person cf-head" style="--c:#ff6a00" data-cv="bianca-perez-diamante" data-img="assets/team/bianca-perez-diamante.png" data-name="EnP Ma. Bianca D. Perez-Diamante" data-title="Head, Quezon City Disaster Risk Reduction and Management Department">
         <div class="cf-photo"><img src="assets/team/bianca-perez-diamante.png" alt="EnP Ma. Bianca D. Perez-Diamante"></div>
-        <div class="cf-body"><h3>EnP Ma. Bianca D. Perez-Diamante</h3><p>Head, Quezon City Disaster Risk Reduction and Management Department</p></div>
+        <div class="cf-body"><h3>EnP Ma. Bianca D. Perez-Diamante</h3><p>Head, Quezon City Disaster Risk Reduction and Management Department</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
-      <article class="cf-slide cf-person" style="--c:#22d3ee">
+      <article class="cf-slide cf-person" style="--c:#22d3ee" data-cv="rainier-ting" data-img="assets/team/rainier-ting.png" data-name="Rainier Ting" data-title="OIC, Capacity Development Section">
         <div class="cf-photo"><img src="assets/team/rainier-ting.png" alt="Rainier Ting"></div>
-        <div class="cf-body"><h3>Rainier Ting</h3><p>OIC, Capacity Development Section</p></div>
+        <div class="cf-body"><h3>Rainier Ting</h3><p>OIC, Capacity Development Section</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
-      <article class="cf-slide cf-person" style="--c:#fb7185">
+      <article class="cf-slide cf-person" style="--c:#fb7185" data-cv="angelo-joel-padua" data-img="assets/team/angelo-joel-padua.png" data-name="Angelo Joel Padua" data-title="Supervisor, External Trainings">
         <div class="cf-photo"><img src="assets/team/angelo-joel-padua.png" alt="Angelo Joel Padua"></div>
-        <div class="cf-body"><h3>Angelo Joel Padua</h3><p>Supervisor, External Trainings</p></div>
+        <div class="cf-body"><h3>Angelo Joel Padua</h3><p>Supervisor, External Trainings</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
-      <article class="cf-slide cf-person" style="--c:#4ade80">
+      <article class="cf-slide cf-person" style="--c:#4ade80" data-cv="evangeline-lumague" data-img="assets/team/evangeline-lumague.png" data-name="Evangeline Lumague" data-title="Supervisor, Internal Trainings">
         <div class="cf-photo"><img src="assets/team/evangeline-lumague.png" alt="Evangeline Lumague"></div>
-        <div class="cf-body"><h3>Evangeline Lumague</h3><p>Supervisor, Internal Trainings</p></div>
+        <div class="cf-body"><h3>Evangeline Lumague</h3><p>Supervisor, Internal Trainings</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
-      <article class="cf-slide cf-person" style="--c:#fbbf24">
+      <article class="cf-slide cf-person" style="--c:#fbbf24" data-cv="ariel-antipolo" data-img="assets/team/ariel-antipolo.png" data-name="Ariel Antipolo" data-title="Technical Training Team Lead">
         <div class="cf-photo"><img src="assets/team/ariel-antipolo.png" alt="Ariel Antipolo"></div>
-        <div class="cf-body"><h3>Ariel Antipolo</h3><p>Technical Training Team Lead</p></div>
+        <div class="cf-body"><h3>Ariel Antipolo</h3><p>Technical Training Team Lead</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
-      <article class="cf-slide cf-person" style="--c:#38bdf8">
+      <article class="cf-slide cf-person" style="--c:#38bdf8" data-cv="gelli-anne-buenaventura" data-img="assets/team/gelli-anne-buenaventura.png" data-name="Gelli Anne Buenaventura" data-title="Secretariat">
         <div class="cf-photo"><img src="assets/team/gelli-anne-buenaventura.png" alt="Gelli Anne Buenaventura"></div>
-        <div class="cf-body"><h3>Gelli Anne Buenaventura</h3><p>Secretariat</p></div>
+        <div class="cf-body"><h3>Gelli Anne Buenaventura</h3><p>Secretariat</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
-      <article class="cf-slide cf-person" style="--c:#a78bfa">
+      <article class="cf-slide cf-person" style="--c:#a78bfa" data-cv="rose-ann-alvarez" data-img="assets/team/rose-ann-alvarez.png" data-name="Rose Ann Alvarez" data-title="Secretariat">
         <div class="cf-photo"><img src="assets/team/rose-ann-alvarez.png" alt="Rose Ann Alvarez"></div>
-        <div class="cf-body"><h3>Rose Ann Alvarez</h3><p>Secretariat</p></div>
+        <div class="cf-body"><h3>Rose Ann Alvarez</h3><p>Secretariat</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
-      <article class="cf-slide cf-person" style="--c:#22d3ee">
+      <article class="cf-slide cf-person" style="--c:#22d3ee" data-cv="abigail-quiroz" data-img="assets/team/abigail-quiroz.png" data-name="Abigail Quiroz" data-title="Instructor">
         <div class="cf-photo"><img src="assets/team/abigail-quiroz.png" alt="Abigail Quiroz"></div>
-        <div class="cf-body"><h3>Abigail Quiroz</h3><p>Instructor</p></div>
+        <div class="cf-body"><h3>Abigail Quiroz</h3><p>Instructor</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
-      <article class="cf-slide cf-person" style="--c:#fb7185">
+      <article class="cf-slide cf-person" style="--c:#fb7185" data-cv="bonifacio-tacuban" data-img="assets/team/bonifacio-tacuban.png" data-name="Bonifacio Tacuban" data-title="Instructor">
         <div class="cf-photo"><img src="assets/team/bonifacio-tacuban.png" alt="Bonifacio Tacuban"></div>
-        <div class="cf-body"><h3>Bonifacio Tacuban</h3><p>Instructor</p></div>
+        <div class="cf-body"><h3>Bonifacio Tacuban</h3><p>Instructor</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
-      <article class="cf-slide cf-person" style="--c:#4ade80">
+      <article class="cf-slide cf-person" style="--c:#4ade80" data-cv="christian-allen-dico" data-img="assets/team/christian-allen-dico.png" data-name="Christian Allen Dico" data-title="Instructor">
         <div class="cf-photo"><img src="assets/team/christian-allen-dico.png" alt="Christian Allen Dico"></div>
-        <div class="cf-body"><h3>Christian Allen Dico</h3><p>Instructor</p></div>
+        <div class="cf-body"><h3>Christian Allen Dico</h3><p>Instructor</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
-      <article class="cf-slide cf-person" style="--c:#fbbf24">
+      <article class="cf-slide cf-person" style="--c:#fbbf24" data-cv="guillermo-dizon" data-img="assets/team/guillermo-dizon.png" data-name="Guillermo Dizon" data-title="Instructor">
         <div class="cf-photo"><img src="assets/team/guillermo-dizon.png" alt="Guillermo Dizon"></div>
-        <div class="cf-body"><h3>Guillermo Dizon</h3><p>Instructor</p></div>
+        <div class="cf-body"><h3>Guillermo Dizon</h3><p>Instructor</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
-      <article class="cf-slide cf-person" style="--c:#38bdf8">
+      <article class="cf-slide cf-person" style="--c:#38bdf8" data-cv="jonalyin-sarillana" data-img="assets/team/jonalyin-sarillana.png" data-name="Jonalyin Sarillana" data-title="Instructor">
         <div class="cf-photo"><img src="assets/team/jonalyin-sarillana.png" alt="Jonalyin Sarillana"></div>
-        <div class="cf-body"><h3>Jonalyin Sarillana</h3><p>Instructor</p></div>
+        <div class="cf-body"><h3>Jonalyin Sarillana</h3><p>Instructor</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
-      <article class="cf-slide cf-person" style="--c:#a78bfa">
+      <article class="cf-slide cf-person" style="--c:#a78bfa" data-cv="leonin-de-leon" data-img="assets/team/leonin-de-leon.png" data-name="Leonin De Leon" data-title="Instructor">
         <div class="cf-photo"><img src="assets/team/leonin-de-leon.png" alt="Leonin De Leon"></div>
-        <div class="cf-body"><h3>Leonin De Leon</h3><p>Instructor</p></div>
+        <div class="cf-body"><h3>Leonin De Leon</h3><p>Instructor</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
-      <article class="cf-slide cf-person" style="--c:#22d3ee">
+      <article class="cf-slide cf-person" style="--c:#22d3ee" data-cv="marilou-lacson" data-img="assets/team/marilou-lacson.png" data-name="Marilou Lacson" data-title="Instructor">
         <div class="cf-photo"><img src="assets/team/marilou-lacson.png" alt="Marilou Lacson"></div>
-        <div class="cf-body"><h3>Marilou Lacson</h3><p>Instructor</p></div>
+        <div class="cf-body"><h3>Marilou Lacson</h3><p>Instructor</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
-      <article class="cf-slide cf-person" style="--c:#fb7185">
+      <article class="cf-slide cf-person" style="--c:#fb7185" data-cv="ramon-jose" data-img="assets/team/ramon-jose.png" data-name="Ramon Jose" data-title="Instructor">
         <div class="cf-photo"><img src="assets/team/ramon-jose.png" alt="Ramon Jose"></div>
-        <div class="cf-body"><h3>Ramon Jose</h3><p>Instructor</p></div>
+        <div class="cf-body"><h3>Ramon Jose</h3><p>Instructor</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
-      <article class="cf-slide cf-person" style="--c:#4ade80">
+      <article class="cf-slide cf-person" style="--c:#4ade80" data-cv="rizalino-mesias" data-img="assets/team/rizalino-mesias.png" data-name="Rizalino Mesias" data-title="Instructor">
         <div class="cf-photo"><img src="assets/team/rizalino-mesias.png" alt="Rizalino Mesias"></div>
-        <div class="cf-body"><h3>Rizalino Mesias</h3><p>Instructor</p></div>
+        <div class="cf-body"><h3>Rizalino Mesias</h3><p>Instructor</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
-      <article class="cf-slide cf-person" style="--c:#fbbf24">
+      <article class="cf-slide cf-person" style="--c:#fbbf24" data-cv="rizhell-apo" data-img="assets/team/rizhell-apo.png" data-name="Rizhell Apo" data-title="Instructor">
         <div class="cf-photo"><img src="assets/team/rizhell-apo.png" alt="Rizhell Apo"></div>
-        <div class="cf-body"><h3>Rizhell Apo</h3><p>Instructor</p></div>
+        <div class="cf-body"><h3>Rizhell Apo</h3><p>Instructor</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
-      <article class="cf-slide cf-person" style="--c:#38bdf8">
+      <article class="cf-slide cf-person" style="--c:#38bdf8" data-cv="romel-dajero" data-img="assets/team/romel-dajero.png" data-name="Romel Dajero" data-title="Instructor">
         <div class="cf-photo"><img src="assets/team/romel-dajero.png" alt="Romel Dajero"></div>
-        <div class="cf-body"><h3>Romel Dajero</h3><p>Instructor</p></div>
+        <div class="cf-body"><h3>Romel Dajero</h3><p>Instructor</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
-      <article class="cf-slide cf-person" style="--c:#a78bfa">
+      <article class="cf-slide cf-person" style="--c:#a78bfa" data-cv="christan-correos" data-img="assets/team/christan-correos.png" data-name="Christan Correos" data-title="Tagayowyow">
         <div class="cf-photo"><img src="assets/team/christan-correos.png" alt="Christan Correos"></div>
-        <div class="cf-body"><h3>Christan Correos</h3><p>Instructor</p></div>
+        <div class="cf-body"><h3>Christan Correos</h3><p>Tagayowyow</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
       
     </div>
@@ -162,19 +222,628 @@
       </div>
       
       </div>
-      <div class="map-embed">
-  <iframe
-    title="QCDRRMD location map"
-    src="https://www.google.com/maps?q=Quezon+City+Hall+Compound,+Kalayaan+Avenue,+Quezon+City,+Philippines&output=embed"
-    width="100%" height="380"
-    style="border:0;border-radius:12px"
-    loading="lazy"
-    allowfullscreen
-    referrerpolicy="no-referrer-when-downgrade"></iframe>
-</div>
+      <div class="map-placeholder">Map to be embedded &mdash; QCDRRMD, Kalayaan Avenue, Quezon City Hall Compound</div>
     </div>
   </div>
 </section>
+<div class="cv-modal" id="cv-modal" aria-hidden="true">
+  <div class="cv-backdrop" data-close></div>
+  <div class="cv-dialog" role="dialog" aria-modal="true" aria-labelledby="cv-name" tabindex="-1">
+    <button class="cv-close" type="button" aria-label="Close" data-close>&times;</button>
+    <div class="cv-head">
+      <div class="cv-photo"><img id="cv-img" src="" alt=""></div>
+      <div><p class="cv-eyebrow">CURRICULUM VITAE</p><h3 id="cv-name"></h3><p id="cv-title"></p></div>
+    </div>
+    <div class="cv-body" id="cv-body"></div>
+    <a class="cv-pdf" id="cv-pdf" href="#" target="_blank" rel="noopener" hidden>Download full CV (PDF)</a>
+  </div>
+</div>
+<script>
+(function () {
+  /* ============ EDIT HERE: each person's CV ============
+     summary     -> a short paragraph in quotes (optional)
+     experience  -> positions and roles (shown as "Position & Roles")
+     education, licenses, trainings -> lists: each item in quotes, separated by commas
+     more        -> optional extra sections: [ ["Section title", ["item", "item"]], ... ]
+     pdf         -> optional link to a full CV file, e.g. "assets/cv/rainier-ting.pdf"
+     Anything left empty ("" or []) is simply hidden.                                  */
+  var CVS = {
+    "bianca-perez-diamante": {
+      summary: "",
+      experience: [
+        "Experienced as Local Disaster Risk Reduction and Management Officer V/III, Operations Manager, and Project Coordinator"
+      ],
+      education: [
+        "Master of Public Administration — UP National College of Public Administration and Governance (2014–2019)",
+        "Master of Environmental Science (12 units earned) — Institute of Environmental Science and Meteorology, UP Diliman (2012–2013)",
+        "Bachelor of Science in Geography — University of the Philippines Diliman (2008–2011); College Scholar",
+        "Bachelor of Arts in Social Sciences (Area Studies) (33 units earned) — University of the Philippines Manila (2007–2008)"
+      ],
+      licenses: [
+        "Registered Environmental Planner (RA 1080)",
+        "Career Service Professional"
+      ],
+      trainings: [],
+      more: [
+        ["Executive, Leadership & Managerial Trainings", [
+          "33rd National Convention: Charting Our Directions Towards Inclusion and Innovation (9 hrs) – Philippine Institute of Environmental Planners (Nov 27–29, 2024)",
+          "CSC Kwentong Lingkod Bayani: Manifesting the Public Service Values (8 hrs) – Civil Service Institute, CSC (Mar 15, 2024)",
+          "Orientation on ISO 22301: Business Continuity Management System (BCMS) (9 hrs) – Civil Service Institute, CSC (Jul 5–21, 2022)",
+          "Public Service Values Program (14 hrs) – Civil Service Institute, CSC (Jun 2, 2022)",
+          "Orientation on ISO 22301: Business Continuity Management System (BCMS) (3 hrs) – Rosshall Management Consultants Inc. & Office of Civil Defense (Dec 21, 2021)",
+          "Crisis Management Training for Crisis Managers (8 hrs) – Quezon City DRRMO (Sep 16, 2021)",
+          "Online Course on Gender, Diversity, and Social Inclusion (11 hrs) – Civil Service Institute, CSC (Apr 12–22, 2021)",
+          "Public Service Continuity Planning Mentorship Program (24 hrs) – Philippine Disaster Resilience Foundation / USAID / NZ Aid (Sep 20 – Nov 30, 2020)",
+          "Training of Trainers on Developing Capacity for Post-Typhoon Disaster Waste Management (16 hrs) – Ateneo de Manila University, IDMR, APN, & Makati City Government (Jan 15–18, 2020)",
+          "CORE Final Planning Conference for Senior Leadership (40 hrs) – US Indo-Pacific Command (Mar 2–9, 2019)",
+          "Emergency Operations Center Training Course (24 hrs) – Office of Civil Defense - Regional Office IV (Dec 12–14, 2018)",
+          "Regional/Subnational Public Health Emergency Management in Asia and the Pacific (SUBPHEMAP) (40 hrs) – Department of Health (Oct 15–19, 2018)",
+          "State Partnership Program HADR Senior Leader Exchange (Makani Pahili 2018) (40 hrs) – Hawaii National Guard, US Dept. of Defense (Jun 2–9, 2018)",
+          "Mass Evacuations in Natural Disasters (MEND) - Camp Coordination & Management (40 hrs) – International Organization for Migration (Mar 12–16, 2018)",
+          "Strategic Planning and Good Governance Seminar-Workshop (24 hrs) – Quezon City DRRMO (Jan 10–12, 2018)",
+          "Symposium on Instituting School-Based DRRM Leadership (8 hrs) – International Institute of Rural Reconstruction (Mar 1, 2018)",
+          "All-Hazard Incident Management Team Training Course (40 hrs) – Office of Civil Defense - Regional Office V (Nov 20–23, 2017)",
+          "Training on Migration Crisis Management (40 hrs) – International Organization for Migration (Aug 8–10, 2017)",
+          "Basic Incident Command System - Executive Course (8 hrs) – Pasig DRRMO & OCD-NCR (Nov 29 – Dec 2, 2016)",
+          "Fundamentals of Emergency Management (IS-00239.D) (6 hrs) – FEMA Emergency Management Institute (Mar 18, 2016)",
+          "Emergency Manager: An Orientation to the Position (IS-00001.A) (6 hrs) – FEMA Emergency Management Institute (Mar 18, 2016)",
+          "Community-Based Disaster Risk Reduction and Management Framework (40 hrs) – GFDRR World Bank & EMI (Feb 24 – Mar 26, 2014)",
+          "Comprehensive Disaster Risk Reduction and Management Framework (40 hrs) – GFDRR World Bank & EMI (Feb 27 – Apr 6, 2012)"
+        ]],
+        ["Technical & Specialized Trainings", [
+          "Drainage Inventory Training for the Quezon City Drainage Master Plan – UP Resilience Institute (Dec 21, 2021)",
+          "2021 PIEP Virtual National Convention: Addressing Social Justice Through Smart, Inclusive, and Livable Communities (15 hrs) – Philippine Institute of Environmental Planners (Nov 5–7, 2021)",
+          "Public Service Continuity Planning Course (31 hrs) – MMDRRMC & OCD-NCR (Jun 14–19, 2021)",
+          "Community-Based Disaster Risk Reduction and Management Course (19 hrs) – OCD-NCR (Apr 26–29, 2021)",
+          "City Competitiveness Training-Workshop for LGUs (21 hrs) – Asian Institute of Management RSN Center (Apr 21–23, 2021)",
+          "Local Disaster Risk Reduction and Management Planning Training (24 hrs) – MMDRRMC & OCD-NCR (Apr 12–16, 2021)",
+          "COVID & Planning: Best Practices on the Ground (2 hrs) – PIEP (Sep 12, 2020)",
+          "Making Cities Resilient: Developing Local DRR and Resilience Strategies (40 hrs) – UNDRR & UNITAR (Jul 27 – Oct 15, 2020)",
+          "Ambient Air Quality Standards & Monitoring (Guidance Area 1) (2 hrs) – Clean Air Asia (Oct 1, 2020)",
+          "Clean Air Action Plans (Guidance Area 5) (2 hrs) – Clean Air Asia (Oct 1, 2020)",
+          "Masterclass on Adaptation Planning Academy (32 hrs) – C40 Cities Climate Adaptation Academy (Feb 17–20, 2020)",
+          "Introduction to GIS Using ArcGIS (16 hrs) – Geodata Systems Technologies, Inc. (Jul 29–30, 2019)",
+          "Seminar-Workshop on Hydrometeorological Hazards (16 hrs) – DOST-PAGASA (Aug 16–17, 2018)",
+          "Contingency Planning Training of Facilitators (32 hrs) – OCD - Regional Office IV (May 7–10, 2018)",
+          "Training for Instructor - Incident Command System (40 hrs) – OCD - Regional Office IV (Dec 18–22, 2017)",
+          "Incident Command System - Position Course (40 hrs) – OCD - Regional Office IV (Oct 16–20, 2017)",
+          "Integrated Planning Incident Command System Training Course (40 hrs) – APVFBI & OCD (Aug 25–29, 2017)",
+          "Basic Incident Command System Training Course (24 hrs) – APVFBI & OCD (Jun 24–26, 2017)",
+          "Weather 101 / Tropical Cyclone 101 Training Course (8 hrs) – WeatherPhilippines (Oct 26, 2016)",
+          "DISASTERAWARE Foundational Training Course (8 hrs) – US Pacific Disaster Center (Mar 15, 2016)",
+          "Effective Technical Writing and Editing (16 hrs) – AIJC & EMI (Jun 19–20, 2014)"
+        ]],
+        ["Key Skills", [
+          "Technical Skills: ArcGIS, ArcMap (8.3/10), Quantum GIS (QGIS), Community-Based Monitoring System (CBMS) Tool",
+          "Design & Multimedia: Adobe InDesign, Adobe Photoshop, Adobe Illustrator, Corel VideoStudio",
+          "Presentation Software: Prezi, Slidebean, Powtoons, MS Office Suite"
+        ]],
+      ],
+      pdf: ""
+    },
+    "rainier-ting": {
+      summary: "",
+      experience: [
+        "Local Disaster Risk Reduction and Management Officer III",
+        "Section Chief, Capacity Development and Knowledge Management Section",
+        "Instructor"
+      ],
+      education: [
+        "Bachelor of Science in Nursing — UST",
+        "Bachelor of Science in Food Technology — UST"
+      ],
+      licenses: [
+        "Registered Nurse (valid until 11/04/2028)"
+      ],
+      trainings: [
+        "Basic Life Support Training of Facilitator (DOH)",
+        "Basic Emergency Care (BEC) Course Training of Trainers (TOT)",
+        "Community-Based Disaster Risk Reduction and Management (CBDRRM) Training of Trainers (TOT)",
+        "Training Workshop on Prehospital Response During a Chemical Incident",
+        "Advance Training of AED and CPR Training Simulator",
+        "Telephone Cardiopulmonary Resuscitation",
+        "Rapid Damage Assessment and Needs Analysis (RDANA) Training Course",
+        "Basic Life Support Training Course",
+        "Vehicular Extrication",
+        "Basic Incident Command System (BICS) Training Course",
+        "Integrated Planning in Incident Command System Training Course",
+        "Position Courses in Incident Command System Training Course",
+        "All-Hazards Incident Management Team Training Course",
+        "Training for Instructor",
+        "Collapsed Structure Search and Rescue (CSSR)",
+        "Emergency Dispatch Training",
+        "Training on Mass Evacuations in Natural Disasters (MEND) – Camp Coordination and Camp Management (CCM)",
+        "Exercise Design Course - December 4-8, 2023",
+        "Standard First Aid - March 30 - April 1, 2026",
+        "Standard First Aid - Learning Facilitation Course (SFA-LFC) - April 13-17, 2026",
+        "Local Disaster Risk Reduction and Management Planning (LDRRMP) - July 7-10, 2026",
+        "Public Service Continuity Planning Training - October 7, 2026"
+      ],
+      pdf: ""
+    },
+    "angelo-joel-padua": {
+      summary: "",
+      experience: [
+        "Local Disaster Risk Reduction and Management Officer I",
+        "Training Coordinator/Instructor",
+        "Training Supervisor, External Trainings"
+      ],
+      education: [],
+      licenses: [
+        "Registered Criminologist"
+      ],
+      trainings: [
+        "Disaster Preparedness Orientation",
+        "Earthquake Drill Evaluator",
+        "Emergency Operations Center Training Course",
+        "Incident Command System Training Courses",
+        "Rapid Damage Assessment and Needs Analysis",
+        "Instructors Development Training Course",
+        "Exercise Design Course",
+        "Contingency Planning Training for Facilitator",
+        "Standard First Aid - March 30 - April 1, 2026",
+        "Standard First Aid - Learning Facilitation Course (SFA-LFC) - April 13-17, 2026"
+      ],
+      pdf: ""
+    },
+    "evangeline-lumague": {
+      summary: "",
+      experience: [
+        "LDRRM Officer I",
+        "Training Supervisor, Internal Trainings",
+        "Training Instructor"
+      ],
+      education: [
+        "Bachelor of Elementary Education, major in Teaching in the Early Grades (K-2) — UP"
+      ],
+      licenses: [
+        "Licensed Professional Teacher"
+      ],
+      trainings: [
+        "First Responders’ Training Course (FRTC)",
+        "Water Search and Rescue Training",
+        "Wilderness Search and Rescue Training",
+        "Rapid Damage Assessment and Needs Analysis (RDANA) Training Course",
+        "Basic Tourism Statistics Training",
+        "Basic Disaster Risk Reduction and Management Training Course",
+        "Basic Incident Command System (BICS) Training Course",
+        "Community-Based Disaster Risk Reduction and Management (CBDRRM) Training of Trainers (TOT)",
+        "Disaster Risk Reduction and Management for Public Sector",
+        "Emergency Operations Center Training Course",
+        "Integrated Planning in Incident Command System Training Course",
+        "Position Courses in Incident Command System Training Course",
+        "All-Hazards Incident Management Team Training Course",
+        "Basic Life Support Training",
+        "Orientation on Gender and Development (GAD), Sexual Orientation, Gender Identity and Expression (SOGIE), and Committee on Decorum Investigation (CODI) for Quezon City Hall Employees",
+        "Exercise Design Course - December 4-8, 2023",
+        "Training For Instructors - December 11-15, 2023",
+        "Standard First Aid - March 30 - April 1, 2026",
+        "Standard First Aid - Learning Facilitation Course (SFA-LFC) - April 13-17, 2026",
+        "Local Disaster Risk Reduction and Management Planning (LDRRMP) - July 7-10, 2026",
+        "Public Service Continuity Planning Training - October 7, 2026"
+      ],
+      pdf: ""
+    },
+    "ariel-antipolo": {
+      summary: "",
+      experience: [
+        "Local DRRM Officer I",
+        "Team Leader, Technical Training"
+      ],
+      education: [
+        "Bachelor in Secondary Education, major in Physical Education"
+      ],
+      licenses: [],
+      trainings: [
+        "ICS Cadre",
+        "Orientation on Risk Communication, Basic Etiquette and Proper Handling two-way radio on DRRM Operations",
+        "Training on Humane Dog Catching, Animal Welfare Laws and Veterinary Ordinance",
+        "Open Water Scuba Diver",
+        "Water Search and Rescue Training",
+        "Emergency Operations Center",
+        "Crash Vehicle Extrication Rescue Training",
+        "National Training Course on Nuclear and Radiological Emergency Preparedness and Response",
+        "International Urban Search and Rescue refresher seminar ICOW INSARAG 36-hour earthquake response exercise",
+        "Team Leaders at CBRN Sites",
+        "Orientation on UN Basic Tool and guidelines for the Philippine Disaster Relief Team and Response Cluster Members",
+        "Collapsed Structure Search and Rescue (CSSR)",
+        "Swift Water Rescue with Capacity Building",
+        "Rapid damage and Needs Analysis Training Course",
+        "Basic/Intermediate Incident Command System",
+        "Health Emergency Management Staff (HEMS)",
+        "Urban Search and Rescue Course",
+        "Chemical (HAZMAT), Biological, Radiological and Nuclear (CBRN) Orientation Course",
+        "Seminar on Emergency Care and Ambulance Operation",
+        "Earthquake & Landslide Search and Rescue Orientation Course (ELSAROC)",
+        "Assist and Basic of Organizing",
+        "POPLAW Seminar for Barangay Public Safety Officer of Quezon City",
+        "Basic Life Support (AHA)",
+        "Exercise Design Course - December 4-8, 2023",
+        "Standard First Aid",
+        "Standard First Aid - Learning Facilitation Course (SFA-LFC) - April 13-17, 2026",
+        "Local Disaster Risk Reduction and Management Planning (LDRRMP) - July 7-10, 2026"
+      ],
+      pdf: ""
+    },
+    "gelli-anne-buenaventura": {
+      summary: "",
+      experience: [
+        "Secretariat"
+      ],
+      education: [
+        "Bachelor of Science in Hotel and Restaurant Management — Colegio De San Lorenzo"
+      ],
+      licenses: [],
+      trainings: [
+        "Incident Command System Instructor/Cadre",
+        "Basic Incident Command System (BICS)",
+        "Integrated Planning in Incident Command System (IPICS)",
+        "Position Courses on Incident Command System (PCICS)",
+        "All-Hazards Incident Management Team (AHIMT)",
+        "Training for Instructors (TFI)",
+        "Emergency Operations Center Training (EOC)",
+        "Rapid Damage Assessment and Needs Analysis (RDANA)",
+        "Contingency Planning Training for Facilitator (CPTOF)",
+        "Basic Emergency Care Training (BEC)",
+        "Basic Mental Health and Psychosocial Support Training (MHPSS)",
+        "Contingency Planning Training of Facilitator - February 13-17, 2023",
+        "Community-Based Disaster Risk Reduction and Management Training Course - September 23-25, 2024",
+        "Exercise Design Course - February 23-27, 2025"
+      ],
+      pdf: ""
+    },
+    "rose-ann-alvarez": {
+      summary: "",
+      experience: [
+        "Special Operations Support Staff",
+        "Secretariat"
+      ],
+      education: [],
+      licenses: [],
+      trainings: [
+        "Basic Incident Command System",
+        "First Responders Training Course - February 21-24, 2023",
+        "Swift Water Rescue Training Course - March 13-15, 2023",
+        "Earthquake, Landslide Search and Rescue Orientation Course - March 23-25, 2023",
+        "Emergency Operations Center (EOC) Training Course - July 6-8, 2023",
+        "Community-Based Disaster Risk Reduction and Management Training - November 9-11, 2023",
+        "Integrated Planning on Incident Command System - July 23-27, 2024",
+        "Incident Command System on Position Course - August 5-9, 2024",
+        "Rapid Damage Assessment and Needs Analysis - May 11-14, 2026",
+        "All-Hazards Incident Management Team (AHIMT) Training - July 27-31, 2026"
+      ],
+      pdf: ""
+    },
+    "abigail-quiroz": {
+      summary: "",
+      experience: [
+        "Emergency Medical Responder"
+      ],
+      education: [
+        "Bachelor of Science in Nursing"
+      ],
+      licenses: [],
+      trainings: [
+        "Basic Incident Command System",
+        "Rapid Damage Assessment and Needs Analysis",
+        "Community-Based Disaster Risk Reduction and Management Training for Trainers",
+        "Standard First Aid",
+        "Standard First Aid - Learning Facilitation Course (SFA-LFC) - April 13-17, 2026",
+        "Integrated Planning on Incident Command System - June 1-5, 2026",
+        "Incident Command System on Position Course - June 29 - July 3, 2026",
+        "All-Hazards Incident Management Team (AHIMT) Training - July 27-31, 2026"
+      ],
+      pdf: ""
+    },
+    "bonifacio-tacuban": {
+      summary: "",
+      experience: [
+        "Instructor"
+      ],
+      education: [],
+      licenses: [],
+      trainings: [
+        "Basic Incident Command System - February 5-7, 2018",
+        "Standard First Aid",
+        "Basic Life Support"
+      ],
+      pdf: ""
+    },
+    "christian-allen-dico": {
+      summary: "",
+      experience: [
+        "Administrative Assistant I",
+        "Instructor"
+      ],
+      education: [
+        "Bachelor of Science in Entrepreneurship — QCU"
+      ],
+      licenses: [],
+      trainings: [
+        "Basic Emergency Care Course",
+        "ICS CADRE",
+        "Basic Incident Command System (BICS)",
+        "Integrated Planning Course on Incident Command System (IPICS)",
+        "Training For Instructors (TFI)",
+        "Rapid Damage Assessment and Needs Analysis (RDANA) Training Course",
+        "Disaster Risk Reduction Management for Public Sector (DRRMPS)",
+        "Emergency Operations Center (EOC)",
+        "Telephone CPR Course Workshop",
+        "Standard First Aid and Basic Life Support Training",
+        "Safety Officer II (Occupational Safety and Health Administration)",
+        "Mental Health and Psychosocial Support (MHPSS)",
+        "Coaches' Training on the Management of the Dead and the Missing Persons - November 6-10, 2023",
+        "Exercise Design Course - December 4-8, 2023"
+      ],
+      pdf: ""
+    },
+    "guillermo-dizon": {
+      summary: "",
+      experience: [
+        "Instructor"
+      ],
+      education: [],
+      licenses: [],
+      trainings: [
+        "Basic Incident Command System",
+        "First Responders Training Course - February 21-24, 2023",
+        "Integrated Planning on Incident Command System - April 11-15, 2023",
+        "Emergency Operations Center (EOC) Training Course - July 6-8, 2023",
+        "Incident Command System Position Course - October 9-13, 2023",
+        "All-Hazards Incident Management Team - November 6-10, 2023",
+        "Training For Instructors - December 11-15, 2023",
+        "Community-Based Disaster Risk Reduction and Management Training of Trainers - August 11-15, 2025",
+        "Standard First Aid - March 30 - April 1, 2026",
+        "Standard First Aid - Learning Facilitation Course (SFA-LFC) - April 13-17, 2026"
+      ],
+      pdf: ""
+    },
+    "jonalyin-sarillana": {
+      summary: "",
+      experience: [
+        "Instructor"
+      ],
+      education: [],
+      licenses: [],
+      trainings: [
+        "First Responders Training Course - July 14-17, 2024",
+        "Rapid Damage Assessment and Need Analysis - August 27-30, 2024",
+        "Basic Incident Command System - June 16-18, 2025",
+        "Community-Based Disaster Risk Reduction and Management Training of Trainers - August 11-15, 2025",
+        "Emergency Operations Center (EOC) Training Course - July 18-20, 2025",
+        "Integrated Planning on Incident Command System (IPICS) Training Course - September 8-12, 2025",
+        "Incident Command System on Position Course (ICSPC) Training - October 13-17, 2025",
+        "All-Hazards Incident Management Team (AHIMT) Training Course - November 24-28, 2025",
+        "Exercise Design Course - February 23-27, 2026",
+        "Standard First Aid - March 30 - April 1, 2026",
+        "Standard First Aid - Learning Facilitation Course (SFA-LFC) - April 13-17, 2026"
+      ],
+      pdf: ""
+    },
+    "leonin-de-leon": {
+      summary: "",
+      experience: [],
+      education: [
+        "BS in Public Administration — Nueva Ecija State University"
+      ],
+      licenses: [],
+      trainings: [
+        "First Responders Training Course (FRTC) - October 14-17, 2025",
+        "Basic Incident Command System (BICS) - March 2-4, 2026",
+        "Emergency Operations Center (EOC) Training Course - March 23-25, 2026",
+        "Community-Based Disaster Risk Reduction and Management (CBDRRM) Training - April 6-8, 2026",
+        "Standard First Aid - March 30 - April 1, 2026",
+        "Standard First Aid - Learning Facilitation Course (SFA-LFC) - April 13-17, 2026",
+        "Rapid Damage Assessment and Needs Analysis - May 4-7, 2026",
+        "Integrated Planning on Incident Command System - June 1-5, 2026",
+        "Incident Command System on Position Course - June 29 - July 3, 2026"
+      ],
+      pdf: ""
+    },
+    "marilou-lacson": {
+      summary: "",
+      experience: [
+        "Instructor"
+      ],
+      education: [],
+      licenses: [],
+      trainings: [
+        "Basic Incident Command System",
+        "Swift Water Rescue Training Course - March 13-15, 2023",
+        "Earthquake, Landslide Search and Rescue Orientation Course - March 23-25, 2023",
+        "Emergency Operations Center (EOC) Training Course - July 6-8, 2023",
+        "Community-Based Disaster Risk Reduction and Management Training - November 6-8, 2023",
+        "Integrated Planning on Incident Command System - November 27 - December 1, 2023",
+        "Incident Command System Position Course - August 12-16, 2024",
+        "Rapid Damage Assessment and Needs Analysis (RDANA) - August 27-30, 2024",
+        "All-Hazards Incident Management Team (AHIMT) Training Course - November 24-28, 2025",
+        "Standard First Aid - March 30 - April 1, 2026",
+        "Standard First Aid - Learning Facilitation Course (SFA-LFC) - April 13-17, 2026"
+      ],
+      pdf: ""
+    },
+    "ramon-jose": {
+      summary: "",
+      experience: [
+        "Public Relations Officer III — Public Affairs Information Services Department"
+      ],
+      education: [
+        "BA in Philosophy",
+        "MCDRM"
+      ],
+      licenses: [],
+      trainings: [
+        "Basic Incident Command System (BICS)",
+        "Integrated Planning on Incident Command System (IPICS)",
+        "Incident Command System on Position Course (ICSPC)",
+        "Community-Based Disaster Risk Reduction Management (CBDRRM)",
+        "Rapid Damage Assessment and Needs Analysis (RDANA)",
+        "Emergency Operations Center (EOC) Training Course",
+        "Public Service Continuity Planning - February 28 - March 3, 2023",
+        "Standard First Aid - March 30 - April 1, 2026",
+        "Standard First Aid - Learning Facilitation Course (SFA-LFC) - April 13-17, 2026",
+        "Local Disaster Risk Reduction and Management Planning (LDRRMP) - July 7-10, 2026"
+      ],
+      pdf: ""
+    },
+    "rizalino-mesias": {
+      summary: "",
+      experience: [
+        "Instructor"
+      ],
+      education: [],
+      licenses: [],
+      trainings: [
+        "Basic Emergency Care Course - July 10-12, 2023",
+        "Exercise Design Course - December 4-8, 2023",
+        "Basic Training on Management of the Dead and Missing Persons - October 28-30, 2025",
+        "Standard First Aid",
+        "Standard First Aid - Learning Facilitation Course (SFA-LFC) - April 13-17, 2026"
+      ],
+      pdf: ""
+    },
+    "rizhell-apo": {
+      summary: "",
+      experience: [
+        "Administrative Officer I",
+        "Instructor"
+      ],
+      education: [
+        "BS in Entrepreneurship — QCU"
+      ],
+      licenses: [],
+      trainings: [
+        "All-Hazards Incident Management Team (AHIMT)",
+        "Basic Incident Command System (BICS)",
+        "Training For Instructors (TFI)",
+        "Mental Health and Psychosocial Support (MHPSS)",
+        "Basic Emergency Care Course (BEC)",
+        "Rapid Damage Assessment and Needs Analysis (RDANA)",
+        "Incident Command System on Position Course (ICSPC)",
+        "Exercise Design Course (EDC)",
+        "Standard First Aid Training",
+        "Standard First Aid - Learning Facilitation Course (SFA-LFC) - April 13-17, 2026",
+        "Local Disaster Risk Reduction and Management Planning (LDRRMP) - July 7-10, 2026",
+        "Public Service Continuity Planning Training - October 7, 2026"
+      ],
+      pdf: ""
+    },
+    "romel-dajero": {
+      summary: "",
+      experience: [
+        "Training Instructor"
+      ],
+      education: [
+        "Bachelor of Science in Hotel and Restaurant Management — Bestlink Colleges"
+      ],
+      licenses: [],
+      trainings: [
+        "Basic Incident Command",
+        "Integrated Planning Incident Command System",
+        "Incident Command System Position Course",
+        "All Hazard Incident Management Team",
+        "Training For Instructors",
+        "Community Based Disaster Risk Reduction and Management",
+        "Rapid Damage Assessment and Needs Analysis",
+        "Water Search and Rescue Training Course",
+        "Swift Water Rescue and Boat handling Training Course",
+        "Instructors Development Training Course",
+        "Emergency Operations Center Training Course",
+        "First Responders Training Course - February 28 - March 3, 2023",
+        "Earthquake, Landslide Search and Rescue Orientation Course (ELSAROC)",
+        "Crash Vehicular Extrication and Rescue Training Course - July 3-5, 2023",
+        "Coaches' Training on the Management of the Dead and the Missing Persons - November 6-10, 2023",
+        "Disaster Resilience Children's Fair Workshop - September 28-30, 2024",
+        "Basic Life Support Training of Facilitators - May 19, 23, 2025",
+        "Hazardous Materials IAW NFPA 470 - April 13-15, 2026",
+        "Technical Rope Rescue Training Course Entry Level - June 22-26, 2026"
+      ],
+      pdf: ""
+    },
+    "christan-correos": {
+      summary: "",
+      experience: [],
+      education: [
+        "Bachelor of Science in Industrial Engineering — QCU"
+      ],
+      licenses: [],
+      trainings: [
+        "Licensed Open Water Scuba Diver",
+        "Rapid Damage Assessment and Needs Analysis Training Course",
+        "Water Search and Rescue Training",
+        "Basic Incident Command System Training Course",
+        "Integrated Planning in Incident Command System Training Course",
+        "Emergency Operations Center (EOC) Training Course - July 27-29, 2023",
+        "Incident Command System Position Course - October 9-13, 2023",
+        "All-Hazards Incident Management Team - November 20-24, 2023",
+        "Community-Based Disaster Risk Reduction and Management Training - November 16-18, 2023",
+        "Training For Instructors - December 11-15, 2023",
+        "Exercise Design Course - February 23-27, 2025",
+        "Standard First Aid - March 30 - April 1, 2026",
+        "Standard First Aid - Learning Facilitation Course (SFA-LFC) - April 13-17, 2026"
+      ],
+      pdf: ""
+    },
+  };
+  var SECTIONS = [['summary', 'Profile'], ['experience', 'Position & Roles'], ['education', 'Education'], ['licenses', 'Licenses & Eligibility'], ['trainings', 'Trainings & Competencies']];
+
+  var modal = document.getElementById('cv-modal');
+  var stage = document.querySelector('#team-cf .cf-stage');
+  if (!modal || !stage) return;
+  var dlg = modal.querySelector('.cv-dialog'), closeBtn = modal.querySelector('.cv-close');
+  var body = document.getElementById('cv-body'), pdf = document.getElementById('cv-pdf');
+  var lastFocus = null, downX = 0;
+
+  function addSection(title, v) {
+    if (!v || (Array.isArray(v) && !v.length)) return false;
+    var h = document.createElement('h4'); h.textContent = title; body.appendChild(h);
+    if (Array.isArray(v)) {
+      var ul = document.createElement('ul');
+      v.forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
+      body.appendChild(ul);
+    } else {
+      var p = document.createElement('p'); p.textContent = v; body.appendChild(p);
+    }
+    return true;
+  }
+  function render(id) {
+    var d = CVS[id] || {}, any = false;
+    body.innerHTML = '';
+    SECTIONS.forEach(function (s) { if (addSection(s[1], d[s[0]])) any = true; });
+    (d.more || []).forEach(function (m) { if (addSection(m[0], m[1])) any = true; });
+    if (!any) {
+      var e = document.createElement('p'); e.className = 'cv-empty'; e.textContent = 'CV details will be posted soon.';
+      body.appendChild(e);
+    }
+    pdf.hidden = !d.pdf; pdf.href = d.pdf || '#';
+  }
+  function openCV(slide) {
+    var img = document.getElementById('cv-img');
+    img.src = slide.getAttribute('data-img'); img.alt = slide.getAttribute('data-name');
+    document.getElementById('cv-name').textContent = slide.getAttribute('data-name');
+    document.getElementById('cv-title').textContent = slide.getAttribute('data-title');
+    render(slide.getAttribute('data-cv'));
+    lastFocus = document.activeElement;
+    modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false');
+    document.documentElement.style.overflow = 'hidden';
+    dlg.scrollTop = 0; closeBtn.focus();
+  }
+  function closeCV() {
+    modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true');
+    document.documentElement.style.overflow = '';
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  stage.addEventListener('pointerdown', function (e) { downX = e.clientX; }, true);
+  stage.addEventListener('click', function (e) {
+    var slide = e.target.closest ? e.target.closest('.cf-slide') : null;
+    if (!slide || slide.getAttribute('data-pos') !== '0') return;   /* side cards just slide into place */
+    if (Math.abs(e.clientX - downX) > 10) return;                    /* ignore swipes */
+    openCV(slide);
+  }, true);
+  modal.addEventListener('click', function (e) { if (e.target.hasAttribute('data-close')) closeCV(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('open')) closeCV(); });
+})();
+</script>
 <script>
 
 function initCoverflow(id) {
