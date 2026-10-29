@@ -18,7 +18,7 @@
       <ul>
         <li><a href="index.html">Home</a></li>
 <li><a href="trainings.html">Trainings Offered</a></li>
-<li><a href="https://tan-verdict-8c0.notion.site/3d11fb57e256801cb639ca2079e4938b?v=c9b1fb57e25682429db3881c591685a3&source=copy_link" target="_blank" rel="noopener">Schedule</a></li>
+<li><a href="request.html">Request a Training</a></li>
 <li><a href="process.html">Requirements &amp; Process</a></li>
 <li><a href="process.html#rate-us">Rate us!</a></li>
 <li><a href="about.html" class="active">About</a></li>
@@ -95,6 +95,9 @@
   .cv-head{flex-direction:column; text-align:center; padding:34px 20px 20px;}
   .cv-body{padding:18px 20px 6px;} .cv-pdf{margin:8px 20px 22px;}
 }
+.map-embed{position:relative; height:340px; border-radius:16px; overflow:hidden; border:1px solid var(--line); box-shadow:0 12px 26px rgba(20,64,196,.12); background:var(--tint);}
+.map-embed iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+.map-link{display:inline-block; margin-top:10px; font-weight:600; color:var(--blue-dark);}
 </style>
 <section class="section cf-section" id="about">
   <div class="section-inner"><p class="fx-eyebrow">OUR TEAM</p>
@@ -174,9 +177,9 @@
         <div class="cf-photo"><img src="assets/team/romel-dajero.png" alt="Romel Dajero"></div>
         <div class="cf-body"><h3>Romel Dajero</h3><p>Instructor</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
-      <article class="cf-slide cf-person" style="--c:#a78bfa" data-cv="christan-correos" data-img="assets/team/christan-correos.png" data-name="Christan Correos" data-title="Instructor">
+      <article class="cf-slide cf-person" style="--c:#a78bfa" data-cv="christan-correos" data-img="assets/team/christan-correos.png" data-name="Christan Correos" data-title="Tagayowyow">
         <div class="cf-photo"><img src="assets/team/christan-correos.png" alt="Christan Correos"></div>
-        <div class="cf-body"><h3>Christan Correos</h3><p>Instructor</p><button type="button" class="cv-btn">View CV</button></div>
+        <div class="cf-body"><h3>Christan Correos</h3><p>Tagayowyow</p><button type="button" class="cv-btn">View CV</button></div>
       </article>
       
     </div>
@@ -222,7 +225,12 @@
       </div>
       
       </div>
-      <div class="map-placeholder">Map to be embedded &mdash; QCDRRMD, Kalayaan Avenue, Quezon City Hall Compound</div>
+      <div class="map-wrap">
+        <div class="map-embed">
+          <iframe src="https://www.google.com/maps?q=Quezon+City+Disaster+Risk+Reduction+and+Management+Department%2C+Kalayaan+Avenue%2C+Quezon+City+Hall+Compound%2C+Quezon+City&amp;output=embed" title="Map of QCDRRMD, Kalayaan Avenue, Quezon City Hall Compound" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Quezon+City+Disaster+Risk+Reduction+and+Management+Department%2C+Kalayaan+Avenue%2C+Quezon+City+Hall+Compound%2C+Quezon+City" target="_blank" rel="noopener">Open in Google Maps &#8599;</a>
+      </div>
     </div>
   </div>
 </section>
@@ -934,7 +942,7 @@ if (document.readyState === 'loading') {
       <p class="footer-label">Section</p>
       <ul class="footer-links">
         <li><a href="trainings.html">Training programs</a></li>
-        <li><a href="process.html">How to request a training</a></li>
+        <li><a href="request.html">Request a training</a></li>
         <li><a href="about.html#contact">Contact us</a></li>
       </ul>
     </div>
